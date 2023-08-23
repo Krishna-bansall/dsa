@@ -6,36 +6,32 @@ def factorial(n):
         arr.append(n)
     return arr
     
-arr_real = factorial(num)
-current_num_real = arr_real[0]
-permutation_real  = []
+array = factorial(num)
+permutations = []
 
-# while len(permutation) < num:
-def match_founder(current_num, arr, permutation):
-    for i in range(len(arr) - 1):
-        if (current_num - arr[i]) == 1:
-            pass
-        elif  current_num != arr[i]:
-            current_num = arr[i]
-            i = 0
-            permutation.append(current_num)
-            arr.remove(current_num)
-        # print(arr, permutation, current_num)
-        return current_num, permutation, arr
-        
-print(match_founder(current_num_real, arr_real, permutation_real))
+current = array[0]
+i = 0
+error = False
 
+while num > 0:
+    try:
+        if abs(array[i] - current) == 1:
+            i += 1
+        else:
+            if array[i] not in permutations:
+                current = array[i]
+                permutations.append(current)
+                array.remove(current)
+                num -= 1
+                i = 0
+            else:
+                i += 1
+    except IndexError:
+        error = True
+        break
 
-# while not len(arr) == 0:
-#     for i in range(num):
-#         try:
-#             arr.remove(current_num)
-#         except ValueError:
-#             pass  
-#         if arr[i] - current_num == 1:
-#             permutation.append(arr[i])
-#         else:
-#             pass
-        
-    
-# print(permutation)
+if error:
+    print("NO SOLUTION") 
+else:
+    permutations = map(str, permutations)
+    print(" ".join(permutations))
